@@ -101,6 +101,88 @@ class RecipeCard extends HTMLElement {
     // created in the constructor()
 
     // Part 1 Expose - TODO
+    console.log(Object.keys(data));
+    // creating the image element
+    var img = document.createElement('img');
+    img.setAttribute('src', searchForKey(data, 'thumbnailUrl'));
+    img.setAttribute('alt', searchForKey(data, 'headline')) ;
+    card.appendChild(img);
+    
+    // creating the title element
+    var title = document.createElement('p');
+    title.setAttribute('class', 'title');
+    // href element in title element
+    var titleLink = document.createElement('a');
+    titleLink.setAttribute('href', getUrl(data));
+    titleLink.innerHTML = searchForKey(data, 'headline');
+    // appending href element to title element
+    title.appendChild(titleLink);
+    // appending the title to the article root
+    card.appendChild(title);
+
+    // creating the organization paragraph
+    var org = document.createElement('p');
+    org.setAttribute('class', 'organization');
+    org.innerHTML = getOrganization(data);
+    card.appendChild(org);
+
+    // ratings
+    var ratings = document.createElement('div');
+    ratings.setAttribute('class', 'rating');
+    // if there are NO reviews
+    if (searchForKey(data, 'ratingCount') == undefined) {
+      var noReviews = document.createElement('span');
+      noReviews.innerHTML = 'No Reviews';
+      ratings.appendChild(noReviews);
+      card.appendChild(ratings);
+    } else { // there ARE reviews
+      var num = searchForKey(data, 'ratingValue'); // average rating out of 5
+      var avgRev = document.createElement('span');
+      avgRev.innerHTML = num;
+      ratings.appendChild(avgRev);
+      // corresponding image to review score
+      var ratingRounded = Math.round(num);
+      var ratingImg = document.createElement('img');
+      if (ratingRounded == 0) {
+        ratingImg.setAttribute('src', '/assets/images/icons/0-star.svg');
+        ratingImg.setAttribute('alt', '0 stars');
+      } else if (ratingRounded == 1) {
+        ratingImg.src = '/assets/images/icons/1-star.svg';
+        ratingImg.setAttribute('alt', '1 star');
+      } else if (ratingRounded == 2) {
+        ratingImg.src = '/assets/images/icons/2-star.svg';
+        ratingImg.setAttribute('alt', '2 stars');
+      } else if (ratingRounded == 3) {
+        ratingImg.src = '/assets/images/icons/3-star.svg';
+        ratingImg.setAttribute('alt', '3 stars');
+      } else if (ratingRounded == 4) {
+        ratingImg.src = '/assets/images/icons/4-star.svg';
+        ratingImg.setAttribute('alt', '4 stars');
+      } else {
+        ratingImg.setAttribute('src', '/assets/images/icons/5-star.svg');
+        ratingImg.setAttribute('alt', '5 stars');
+        }
+      ratings.appendChild(ratingImg);
+    
+      // total number of reviews
+      var totalNumRev = document.createElement('span');
+      totalNumRev.innerHTML = "(" + searchForKey(data, 'ratingCount') + ")";
+      ratings.appendChild(totalNumRev);
+      card.appendChild(ratings);
+    }
+      // time
+      var time = document.createElement('time');
+      time.innerHTML = convertTime(searchForKey(data, 'totalTime'));
+      card.appendChild(time);
+
+      // ingredients list
+      var ingredients = document.createElement('p');
+      ingredients.setAttribute('class', 'ingredients');
+      ingredients.innerHTML = createIngredientList(searchForKey(data, 'recipeIngredient'));
+      card.appendChild(ingredients);
+
+      this.shadowRoot.appendChild(styleElem);
+      this.shadowRoot.appendChild(card);
   }
 }
 

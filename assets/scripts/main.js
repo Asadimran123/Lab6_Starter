@@ -50,10 +50,10 @@ async function fetchRecipes() {
     .then(response => response.json())
     .then(data => recipeData[recipes[i]] = data)
     .then(() => {
-       if(i == 2 && Object.keys(recipeData).length == recipes.length){
+       if(i==2 && Object.keys(recipeData).length == recipes.length){
          resolve(true);
        }
-       else if(i == 2 && Object.keys(recipeData).length != recipes.length){
+       else if(i==2 && Object.keys(recipeData).length != recipes.length){
        reject(false);
      }})
     .catch(error => reject(false));
@@ -73,8 +73,8 @@ function createRecipeCards() {
   for (let i = 0; i < Object.keys(recipeData).length; i++){
     let recipeCard = document.createElement('recipe-card');
     recipeCard.data = recipeData[recipes[i]];
-    let main = document.getElementsByTagName('main');
-    main.appendChild(recipeCard);
+    let mainTag = document.querySelector('main');
+    mainTag.appendChild(recipeCard);
   }
 }
 

@@ -5,7 +5,10 @@
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json'
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'assets/recipes/turkeysoup.json',
+  'assets/recipes/jackolanterncookies.json',
+  'assets/recipes/peppers.json'
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -50,10 +53,10 @@ async function fetchRecipes() {
     .then(response => response.json())
     .then(data => recipeData[recipes[i]] = data)
     .then(() => {
-       if(i==2 && Object.keys(recipeData).length == recipes.length){
+       if(i==5 && Object.keys(recipeData).length == recipes.length){
          resolve(true);
        }
-       else if(i==2 && Object.keys(recipeData).length != recipes.length){
+       else if(i==5 && Object.keys(recipeData).length != recipes.length){
        reject(false);
      }})
     .catch(error => reject(false));
@@ -70,7 +73,7 @@ function createRecipeCards() {
   // show any others you've added when the user clicks on the "Show more" button.
 
   // Part 1 Expose - TODO
-  for (let i = 0; i < Object.keys(recipeData).length; i++){
+  for (let i = 0; i < 3; i++){
     let recipeCard = document.createElement('recipe-card');
     recipeCard.data = recipeData[recipes[i]];
     let mainTag = document.querySelector('main');
@@ -87,4 +90,28 @@ function bindShowMore() {
   // in the recipeData object where you stored them/
 
   // Part 2 Explore - TODO
+  var newRecipes = document.createElement('main');
+  newRecipes.setAttribute('id', 'newRecipes');
+  for (let i = 3; i < 6; i++) {
+    let recipeCard = document.createElement('recipe-card');
+    recipeCard.data = recipeData[recipes[i]];
+    newRecipes.appendChild(recipeCard);
+  }
+  let main = document.querySelector('main');
+  main.appendChild(newRecipes);
+  document.getElementById('newRecipes').style.display = 'none';
+
+    document.querySelector('button').addEventListener("click", toggle);
+
+    function toggle() {
+      if (document.querySelector('button').innerText == 'Show more') {
+        document.querySelector('button').innerHTML = 'Show less';
+        document.getElementById('newRecipes').style.display = 'block';
+      } else {
+        document.querySelector('button').innerHTML = 'Show more';
+        document.getElementById('newRecipes').style.display = 'none';
+      }
+      
+    }
+    
 }

@@ -144,22 +144,22 @@ class RecipeCard extends HTMLElement {
       var ratingRounded = Math.round(num);
       var ratingImg = document.createElement('img');
       if (ratingRounded == 0) {
-        ratingImg.setAttribute('src', '/assets/images/icons/0-star.svg');
+        ratingImg.setAttribute('src', 'assets/images/icons/0-star.svg');
         ratingImg.setAttribute('alt', '0 stars');
       } else if (ratingRounded == 1) {
-        ratingImg.src = '/assets/images/icons/1-star.svg';
+        ratingImg.src = 'assets/images/icons/1-star.svg';
         ratingImg.setAttribute('alt', '1 star');
       } else if (ratingRounded == 2) {
-        ratingImg.src = '/assets/images/icons/2-star.svg';
+        ratingImg.src = 'assets/images/icons/2-star.svg';
         ratingImg.setAttribute('alt', '2 stars');
       } else if (ratingRounded == 3) {
-        ratingImg.src = '/assets/images/icons/3-star.svg';
+        ratingImg.src = 'assets/images/icons/3-star.svg';
         ratingImg.setAttribute('alt', '3 stars');
       } else if (ratingRounded == 4) {
-        ratingImg.src = '/assets/images/icons/4-star.svg';
+        ratingImg.src = 'assets/images/icons/4-star.svg';
         ratingImg.setAttribute('alt', '4 stars');
       } else {
-        ratingImg.setAttribute('src', '/assets/images/icons/5-star.svg');
+        ratingImg.setAttribute('src', 'assets/images/icons/5-star.svg');
         ratingImg.setAttribute('alt', '5 stars');
         }
       ratings.appendChild(ratingImg);
